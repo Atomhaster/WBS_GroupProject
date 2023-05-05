@@ -1,0 +1,18 @@
+<b>Mohamad Al Turk</b>
+-   Facetracking Gewinnspiel für Microsoft
+-    GAN Art – wenn KI Kunst macht
+-   Beethovens Mondscheinsonate von KI interpretiert
+    (Hier können wir so was ähnliches machen aber halt für Bilder). 
+
+
+
+gefundene Beispiele:
+https://www.kaggle.com/code/karnikakapoor/art-by-gan
+https://www.v7labs.com/blog/ai-generated-art
+https://app.activeloop.ai/activeloop/wiki-art?utm_source=docs&utm_medium=datasets
+https://www.kaggle.com/code/supratimhaldar/deepartist-identify-artist-from-art
+https://www.kaggle.com/datasets/ikarus777/best-artworks-of-all-time
+https://www.si.edu/openaccess
+https://app.activeloop.ai/activeloop/wiki-art?utm_source=docs&utm_medium=datasets
+
+https://www.kaggle.com/datasets/birdy654/cifake-real-and-ai-generated-synthetic-images

@@ -25,4 +25,9 @@ class datenbank():
     def get_artist(self, id_art):
         statement = f"SELECT * FROM artist Where {id_art}"
         self.curser.execute(statement)
-        
+    
+    def delete_Artist(self):
+        # delted artist from db
+        pass
+    
+    

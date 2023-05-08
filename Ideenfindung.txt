@@ -5,6 +5,17 @@
     (Hier können wir so was ähnliches machen aber halt für Bilder). 
 
 
+Grund Idee ist also die image Classification.
+Anfange wollen wir mit dem Datensatz von:
+https://www.kaggle.com/datasets/ikarus777/best-artworks-of-all-time
+
+nach ähnlichem Shema wie:
+https://www.kaggle.com/code/supratimhaldar/deepartist-identify-artist-from-art
+https://www.analyticsvidhya.com/blog/2020/10/create-image-classification-model-python-keras/
+
+
+
+
 
 gefundene Beispiele:
 https://www.kaggle.com/code/karnikakapoor/art-by-gan
@@ -16,3 +27,15 @@ https://www.si.edu/openaccess
 https://app.activeloop.ai/activeloop/wiki-art?utm_source=docs&utm_medium=datasets
 
 https://www.kaggle.com/datasets/birdy654/cifake-real-and-ai-generated-synthetic-images
+https://datagen.tech/guides/image-recognition/image-recognition-python-code-example-and-5-best-practices/
+
+
+
+
+Infos zu Image Recognition
+https://asperbrothers.com/blog/image-recognition-in-python/
+https://stackabuse.com/image-recognition-in-python-with-tensorflow-and-keras/
+https://www.tensorflow.org/tutorials/images/classification
+https://www.analyticsvidhya.com/blog/2020/10/create-image-classification-model-python-keras/
+
+

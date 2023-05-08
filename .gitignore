@@ -1,0 +1,8 @@
+# ignore All -log files
+*.log
+
+__pycache__/
+
+test
+
+personal_log*

@@ -11,7 +11,8 @@ CREATE TABLE artist(
 # Tabelle painitings erstellen
 CREATE TABLE paintings(  
     id int NOT NULL PRIMARY KEY AUTO_INCREMENT COMMENT 'Primary Key',
-    artist_ID INT
+    artist_ID INT,
+    FOREIGN KEY (artist_ID) REFERENCES artist (id)
 ) COMMENT '';
 
 # Fremdschlüssel vergeben

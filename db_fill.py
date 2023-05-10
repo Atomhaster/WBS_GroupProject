@@ -57,7 +57,8 @@ number_paintings = list_num_paintings()
 # print(number_paintings)
 
 for i in number_paintings.items():
-    if i[1] > 300:
+    if i[1] > 200:
         print(f"{i[0]}\t\t{i[1]}")
 
-gallery = db.database()
+# gallery = db.database()
+

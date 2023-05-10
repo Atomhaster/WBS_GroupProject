@@ -33,18 +33,15 @@ class database(object):
     def __del__(self):
         self.connection.close()
     
-    def get_pic(self, id_pic):
+    def get_painting(self, id_pic):
         statement = f"SELECT * FROM painting Where {id_pic}"
-        self.curser.execute(statement)
+        self.db_cur.execute(statement)
+        return self.db_cur.fetchall()
 
     def get_artist(self, id_art):
         statement = f"SELECT * FROM artist Where {id_art}"
-        self.curser.execute(statement)
-        
-    def get_artist(self, id_art):
-        statement = f"SELECT * FROM artist Where {id_art}"
-        self.curser.execute(statement)
-
+        self.db_cur.execute(statement)
+        return self.db_cur.fetchall()
 
     def delete_Artist(self):
         # delted artist from db

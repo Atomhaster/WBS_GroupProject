@@ -47,6 +47,53 @@ def list_num_paintings():
     for ar in ARTISTS.values():
         out[ar] = get_num_paintings(ar)
     return out
+
+def print_artist_minpainting(minimum):
+    number_paintings = list_num_paintings()
+    print("Count available paintings")
+    for i in number_paintings.items():
+        if i[1] > minimum:
+          print("{:<25}{}".format(i[0],i[1]))
+          
+def read_csv_artists_content(file, minimum = 0):
+    csv_content = {}
+    with open(FOLDER_PATH + "/" + file) as f_csv:
+        reader = csv.reader(f_csv, delimiter=";")
+        for zeile in reader:
+            csv_content[zeile[1]] = (zeile[2][:4], zeile[2][-4:]
+                                    , zeile[3], zeile[4], zeile[5])
+    # deleting the first row with column names
+    del csv_content["name"]
+    # selecting only rows with more than the minimum and not Albrecht Dürer
+    csv_content_selected = {}
+    for j, i in csv_content.items():
+        if int(i[4]) > minimum and not j.startswith("Albrecht"):
+            csv_content_selected[j] = i
+    return csv_content_selected
+
+
+def add_artists_to_db(artists, gallery):
+    for j, i in artists.items():
+        gallery.add_artist(
+            j, i[2], i[0], i[1], i[3], i[4]
+        )
+        
+def add_pictures_to_db(artist_list, gallery, resized=False):
+    for name in artist_list.keys():
+        print("adding paintings of: " + name)
+        name_underscore = name.replace(" ", "_")
+        file_names = get_all_filenames(name_underscore)
+        print(len(file_names), " paintings found")
+        for paint in file_names:
+            if resized:
+                full_path = FOLDER_PATH + "/resized/resized/" + paint
+            else:
+                full_path = FOLDER_PATH + "/images/images/" + name_underscore + "/" + paint
+            im = plt.imread(full_path)
+            gallery.add_painting(im, name)
+            print("+", end=" ")
+        print("\n")
+    
     
 
 #______________________________________________________________________________________
@@ -54,12 +101,7 @@ def list_num_paintings():
 
 ARTISTS = get_all_artist_names()
 
-number_paintings = list_num_paintings()
-# print(number_paintings)
-
-# for i in number_paintings.items():
-#     if i[1] > 200:
-#         print(f"{i[0]}\t\t{i[1]}")
+print_artist_minpainting(200)
 
 #  artists with more than 200 paintings available   
 #  Alfred_Sisley           259
@@ -74,64 +116,34 @@ number_paintings = list_num_paintings()
 #  Vincent_van_Gogh        877
 
 
-
-#_______________________________________________________________________________________
 #  getting the artists infos from the excel file. I've removed the wiki columns from
 #  the file and saved it again with excel. the delimiter therefore changed to ";"
+# reading content of the csv
+csv_artists = read_csv_artists_content("artists_small.csv", 200)
+# printing the list selected
+print("\n\n","content selected csv file \n")
+for i, j in csv_artists.items():
+    print("{:<25}{}".format(i,j))
 
-# reading all content of the csv
-csv_content = {}
-with open(FOLDER_PATH + "/artists_small.csv") as f_csv:
-    reader = csv.reader(f_csv, delimiter=";")
-    for zeile in reader:
-        csv_content[zeile[1]] = (zeile[2][:4], zeile[2][-4:]
-                                 , zeile[3], zeile[4], zeile[5])
-
-# deleting the first row with column names
-del csv_content["name"]
-
-# selecting only rows with more than 200 paintings and not Albrecht Dürer
-csv_content_selected = {}
-for j, i in csv_content.items():
-    if int(i[4]) > 200 and not j.startswith("Albrecht"):
-        csv_content_selected[j] = i
-
-
-
-#_______________________________________________________________________________________
-#  adding the remaining artists to the database
-
-# making the object of out type database
+# making the object of our type database
 gallery = db.database()
 
 # adding all artists to the database
-# for j, i in csv_content_selected.items():
-#     gallery.add_artist(
-#         j, i[2], i[0], i[1], i[3], i[4]
-#     )
+add_artists_to_db(csv_artists, gallery)
     
 # checking if artists are in database
-# all_artist_db = gallery.get_allartists()
-# print(all_artist_db)
+print("\nAll artists existing in db")
+all_artist_db = gallery.get_allartists()
+for row in all_artist_db:
+    print(row)
 
+# adding the pictures of the selected artists to the database
 
-#_______________________________________________________________________________________
-#  adding the pictures of the remaining artists to the database
+# add_pictures_to_db(csv_artists, gallery)
+###  with the original image files, the database is getting 12 GB big. ###
 
-# for name in csv_content_selected.keys():
-#     print("adding paintings of: " + name)
-#     name_underscore = name.replace(" ", "_")
-#     file_names = get_all_filenames(name_underscore)
-#     print(len(file_names), " paintings found")
-#     for paint in file_names:
-#         ###  with the original image files, the database is getting 12 GB big. ###
-#         # full_path = FOLDER_PATH + "/images/images/" + name_underscore + "/" + paint
-#         ###   resized images still big with 4.5 GB.
-#         full_path = FOLDER_PATH + "/resized/resized/" + paint
-#         im = plt.imread(full_path)
-#         gallery.add_painting(im, name)
-#         print("+", end=" ")
-#     print("\n")
+add_pictures_to_db(csv_artists, gallery, resized=True)
+###   resized images still big with 4.5 GB.
     
 ## check how many paintings are in the db:
 count_all_paintings = gallery.query("SELECT COUNT(id) FROM painting", ())

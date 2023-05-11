@@ -1,4 +1,6 @@
 import sqlite3
+import numpy
+import io
 
 class database(object):
     db_name = "artgallery.db"
@@ -50,10 +52,35 @@ class database(object):
         self.query(sql, data)
         self.connection.commit()
     
+    def add_painting(self, painting, artist):
+        def adapt_array(arr):
+            out = io.BytesIO()
+            numpy.save(out, arr)
+            out.seek(0)
+            return sqlite3.Binary(out.read())
+        artist_id = self.get_artist_id(artist)[0][0]
+        size_width = painting.shape[1]
+        size_height = painting.shape[0]
+        painting_blob = adapt_array(painting)
+        sql = """INSERT INTO painting(artist_id, size_width, size_height, painting)
+                VALUES (:artist_id, :size_width, :size_height, :painting)"""
+        data = {"artist_id" : artist_id
+                , "size_width" : size_width
+                , "size_height" : size_height
+                , "painting" : painting_blob}
+        self.query(sql, data)
+        self.connection.commit()
+    
     def get_painting(self, id_pic):
+        def convert_array(text):
+            out = io.BytesIO(text)
+            out.seek(0)
+            return numpy.load(out)
         statement = f"SELECT * FROM painting WHERE id = {id_pic}"
         self.db_cur.execute(statement)
-        return self.db_cur.fetchall()
+        output = self.db_cur.fetchall()
+        output[0] = output[0][:-1] + (convert_array(output[0][4]),)
+        return output
 
     def get_artist(self, id_art):
         statement = f"SELECT * FROM artist WHERE id = {id_art}"

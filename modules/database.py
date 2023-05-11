@@ -52,7 +52,7 @@ class database(object):
         self.query(sql, data)
         self.connection.commit()
     
-    def add_painting(self, painting, artist):
+    def add_painting(self, painting: numpy.ndarray, artist):
         def adapt_array(arr):
             out = io.BytesIO()
             numpy.save(out, arr)
@@ -71,7 +71,7 @@ class database(object):
         self.query(sql, data)
         self.connection.commit()
     
-    def get_painting(self, id_pic):
+    def get_painting(self, id_pic) -> tuple[int,str,int,int,numpy.ndarray]:
         def convert_array(text):
             out = io.BytesIO(text)
             out.seek(0)
@@ -80,7 +80,7 @@ class database(object):
         self.db_cur.execute(statement)
         output = self.db_cur.fetchall()
         output[0] = output[0][:-1] + (convert_array(output[0][4]),)
-        return output
+        return output[0]
 
     def get_artist(self, id_art):
         statement = f"SELECT * FROM artist WHERE id = {id_art}"

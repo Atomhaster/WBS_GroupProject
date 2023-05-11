@@ -28,7 +28,8 @@ class database(object):
                 genre VARCHAR(30),
                 birth YEAR,
                 death YEAR, 
-                nationality VARCHAR (30)
+                nationality VARCHAR (30),
+                number_of_paintings INT
                 );""")
             create_table_painting()
         else:
@@ -44,11 +45,12 @@ class database(object):
         self.db_cur.execute(query, params)
         return self.db_cur.fetchall()
         
-    def add_artist(self, name, genre, birth, death, nationality):
-        sql = """INSERT INTO artist(name, genre, birth, death, nationality)
-                VALUES (:name, :genre, :birth, :death, :nationality)"""
+    def add_artist(self, name, genre, birth, death, nationality, num_paintings):
+        sql = """INSERT INTO artist(name, genre, birth, death, nationality, number_of_paintings)
+                VALUES (:name, :genre, :birth, :death, :nationality, :num_paintings)"""
         data = {"name": name, "genre": genre
-                , "birth": birth, "death": death, "nationality": nationality}
+                , "birth": birth, "death": death
+                , "nationality": nationality, "num_paintings": num_paintings}
         self.query(sql, data)
         self.connection.commit()
     
@@ -88,7 +90,7 @@ class database(object):
         return self.db_cur.fetchall()
     
     def get_artist_id(self, artist_name):
-        statement = f"SELECT id FROM artist WHERE name = {artist_name}"
+        statement = f"SELECT id FROM artist WHERE name = '{artist_name}'"
         self.db_cur.execute(statement)
         return self.db_cur.fetchall()
     
@@ -97,6 +99,6 @@ class database(object):
         self.db_cur.execute(statement)
         return self.db_cur.fetchall()
 
-    def delete_Artist(self):
+    def delete_Artist(self, ):
         # delted artist from db
         pass

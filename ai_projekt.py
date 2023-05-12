@@ -4,7 +4,10 @@ import cv2
 
 
 im = plt.imread("Frida_Kahlo_19.jpg")
-while True:
-    plt.imshow(im)
-    plt.show()
-    break
+# while True:
+    # plt.imshow(im)
+    # plt.show()
+    # break
+    
+print(type(im))
+print(im.shape)

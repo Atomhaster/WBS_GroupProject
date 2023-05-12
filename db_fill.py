@@ -3,8 +3,18 @@ import matplotlib.pyplot as plt
 import modules.database as db
 import csv
 
+## comment use of this script:  ########################################################
+##  download the archive from
+## https://www.kaggle.com/code/supratimhaldar/deepartist-identify-artist-from-art
+## change the FOLDER_PATH variable to the folder the unpacked archive is located
+## import the artists.csv into excel. Delete the columns of bio and wikilink. 
+## save the file again as csv. Change the value of artists_small if necessary
+
 # absolute path where the picture archive from best art work of all time was unzipped
 FOLDER_PATH = "C:/Users/bvondewitz/Downloads/archive"
+
+# file name of the artists.csv with reduced columns
+FILE_CSV = "artists_small.csv"
 
 # list of available artists
 ARTISTS = {}
@@ -13,6 +23,9 @@ ARTISTS = {}
 # img = mpimg.imread( FOLDER_PATH + '/images/images/Amedeo_Modigliani/Amedeo_Modigliani_2.jpg')
 # imgplot = plt.imshow(img)
 # plt.show()
+
+
+###_________________________________________________________________________________####
 
 def get_all_filenames(artist) -> list:
     global FOLDER_PATH
@@ -119,7 +132,7 @@ print_artist_minpainting(200)
 #  getting the artists infos from the excel file. I've removed the wiki columns from
 #  the file and saved it again with excel. the delimiter therefore changed to ";"
 # reading content of the csv
-csv_artists = read_csv_artists_content("artists_small.csv", 200)
+csv_artists = read_csv_artists_content(FILE_CSV, 200)
 # printing the list selected
 print("\n\n","content selected csv file \n")
 for i, j in csv_artists.items():
@@ -133,7 +146,7 @@ add_artists_to_db(csv_artists, gallery)
     
 # checking if artists are in database
 print("\nAll artists existing in db")
-all_artist_db = gallery.get_allartists()
+all_artist_db = gallery.get_all_artists()
 for row in all_artist_db:
     print(row)
 
@@ -147,4 +160,4 @@ add_pictures_to_db(csv_artists, gallery, resized=True)
     
 ## check how many paintings are in the db:
 count_all_paintings = gallery.query("SELECT COUNT(id) FROM painting", ())
-print(count_all_paintings) # 3971
+print(count_all_paintings[0][0]) # 3971

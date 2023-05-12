@@ -94,11 +94,18 @@ class database(object):
         self.db_cur.execute(statement)
         return self.db_cur.fetchall()
     
-    def get_allartists(self):
+    def get_all_artists(self):
         statement = f"SELECT * FROM artist"
         self.db_cur.execute(statement)
         return self.db_cur.fetchall()
 
-    def delete_Artist(self, ):
+    def delete_artist(self, ):
         # delted artist from db
         pass
+    
+    
+if __name__ == "__main__":
+    gallery = database()
+    count_all_paintings = gallery.query("SELECT COUNT(id) FROM painting", ())
+    print(count_all_paintings[0][0]) # 3971
+    

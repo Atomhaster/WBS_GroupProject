@@ -14,3 +14,4 @@ CREATE TABLE paintings(
     artist_ID INT,
     FOREIGN KEY (artist_ID) REFERENCES artist (id)
 ) COMMENT '';
+

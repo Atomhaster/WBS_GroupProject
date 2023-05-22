@@ -1,4 +1,4 @@
-import pyodbc, numpy, io, pyodbc
+import pyodbc, numpy, io, pyodbc, random
 
 class db_azure(object):
     SERVER = 'artistrecognition.database.windows.net'
@@ -113,6 +113,16 @@ class db_azure(object):
         output[0] = output[0][:-1] + (convert_array(output[0][4]),)
         return output[0]
     
+    def get_random_painting(self, artist_name=""):
+        if artist_name:
+            artist_id = self.get_artist_id(artist_name)
+            p_ids = self.get_paintingids_from_artist(artist_id)
+            painting_id = random.randint(min(p_ids)[0], max(p_ids)[0])
+        else:
+            pass
+               
+    def get_paintingids_from_artist(self, artist_id):
+        return self.query(f"SELECT ID FROM painting WHERE artist_id = {artist_id}", ())
 
 if __name__ == "__main__":
     
@@ -138,6 +148,8 @@ if __name__ == "__main__":
     # imgplot = plt.imshow(painting_rec[4])
     # plt.show()
     
+    
+    db.get_random_painting(artist_name="Marc Chagall")
     
     # server = 'artistrecognition.database.windows.net'
     # DSN = "Azure_DB"

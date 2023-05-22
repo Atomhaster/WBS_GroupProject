@@ -1,5 +1,5 @@
 class Bild():
-     def __init__(self, path) -> None:
+    def __init__(self, path) -> None:
         path = path
     
     def get_pic(self, id_pic):

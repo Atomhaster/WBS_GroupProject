@@ -1,6 +1,6 @@
 import os
 import matplotlib.pyplot as plt
-import modules.database as db
+import modules.db_remote as db
 import csv
 
 ## comment use of this script:  ########################################################
@@ -131,15 +131,20 @@ print_artist_minpainting(200)
 
 #  getting the artists infos from the excel file. I've removed the wiki columns from
 #  the file and saved it again with excel. the delimiter therefore changed to ";"
-# reading content of the csv
+# reading content of the csv (needed for further steps)
 csv_artists = read_csv_artists_content(FILE_CSV, 200)
 # printing the list selected
 print("\n\n","content selected csv file \n")
 for i, j in csv_artists.items():
     print("{:<25}{}".format(i,j))
 
-# making the object of our type database
-gallery = db.database()
+# making the object of our type database (holds also the connection to the db
+#       needed for further steps)
+gallery = db.db_azure()
+
+# adding the two tables to the database
+gallery.create_table_artist()
+gallery.create_table_painting()
 
 # adding all artists to the database
 add_artists_to_db(csv_artists, gallery)
@@ -152,7 +157,7 @@ for row in all_artist_db:
 
 # adding the pictures of the selected artists to the database
 
-# add_pictures_to_db(csv_artists, gallery)
+add_pictures_to_db(csv_artists, gallery)
 ###  with the original image files, the database is getting 12 GB big. ###
 
 add_pictures_to_db(csv_artists, gallery, resized=True)

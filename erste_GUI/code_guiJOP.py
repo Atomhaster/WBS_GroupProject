@@ -19,7 +19,6 @@ class MainWindow(QMainWindow):
     def painting_action(self):              
             if not self.window1_opened:
                 window1 = paintingWindow()
-                window1.setWindowTitle("Painting")
                 window1.show()       
                 self.window1_opened = True
                 window1.closeEvent = lambda event: self.window1_closed(event)          
@@ -31,7 +30,6 @@ class MainWindow(QMainWindow):
     def artist_action(self):               
         if not self.window2_opened:
             window2=artistWindow()
-            window2.setWindowTitle("Artist")
             window2.show()
             self.window2_opened = True
             window2.closeEvent = lambda event: self.window2_closed(event)  
@@ -44,7 +42,7 @@ class MainWindow(QMainWindow):
 class paintingWindow(QMainWindow):         
     def __init__(self):
         super().__init__()
-        self.setWindowTitle("GUI")
+        self.setWindowTitle("Painting")
         self.ui = load_ui.loadUi("window22.ui", self) 
     
         def closeEvent(self, event: QCloseEvent):
@@ -54,7 +52,7 @@ class paintingWindow(QMainWindow):
 class artistWindow(QMainWindow):         
     def __init__(self):
         super().__init__()
-        self.setWindowTitle("GUI")
+        self.setWindowTitle("Artist")
         self.ui = load_ui.loadUi("window33.ui", self)
 
 

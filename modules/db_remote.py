@@ -113,14 +113,19 @@ class db_azure(object):
         output[0] = output[0][:-1] + (convert_array(output[0][4]),)
         return output[0]
     
+    def get_max_painting_id(self):
+        return self.query("SELECT MAX(id) FROM painting", ())[0][0]
+    
     def get_random_painting(self, artist_name=""):
         if artist_name:
             artist_id = self.get_artist_id(artist_name)
             p_ids = self.get_paintingids_from_artist(artist_id)
             painting_id = random.randint(min(p_ids)[0], max(p_ids)[0])
         else:
-            pass
-               
+            max_id = self.get_max_painting_id()
+            painting_id = random.randint(1, max_id)
+        return self.get_painting(painting_id)
+            
     def get_paintingids_from_artist(self, artist_id):
         return self.query(f"SELECT ID FROM painting WHERE artist_id = {artist_id}", ())
 
@@ -135,7 +140,7 @@ if __name__ == "__main__":
     
     # print(db.get_artist_id("Frida Kahlo"))
     
-    # import matplotlib.pyplot as plt
+    import matplotlib.pyplot as plt
     # image_path = "C:/Users/bvondewitz/Downloads/archive/resized/resized/Frida_Kahlo_58.jpg"
     # im = plt.imread(image_path)
     # imgplot = plt.imshow(im)
@@ -149,7 +154,11 @@ if __name__ == "__main__":
     # plt.show()
     
     
-    db.get_random_painting(artist_name="Marc Chagall")
+    im = db.get_random_painting()[4]
+    # print(type(im))
+    imgplot = plt.imshow(im)
+    plt.show()
+    # print(db.get_max_painting_id())
     
     # server = 'artistrecognition.database.windows.net'
     # DSN = "Azure_DB"

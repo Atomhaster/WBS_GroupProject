@@ -27,8 +27,6 @@ class painting():
         pass
         # flip the image to identify different variations
         
-
-
 if __name__ == "__main__":
     test_painting = painting(artist_name="Marc Chagall")
     print(test_painting.artist_id)

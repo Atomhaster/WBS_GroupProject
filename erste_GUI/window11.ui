@@ -46,16 +46,26 @@ li.checked::marker { content: &quot;\2612&quot;; }
     <layout class="QVBoxLayout" name="verticalLayout">
      <item>
       <widget class="QPushButton" name="painting">
-       <property name="text">
-        <string>Choose Painting</string>
+       <property name="font">
+        <font>
+         <pointsize>14</pointsize>
+        </font>
        </property>
-       <property name="checkable">,
+       <property name="text">
+        <string>Painting</string>
+       </property>
+       <property name="checkable">
         <bool>false</bool>
        </property>
       </widget>
      </item>
      <item>
       <widget class="QPushButton" name="artist">
+       <property name="font">
+        <font>
+         <pointsize>14</pointsize>
+        </font>
+       </property>
        <property name="text">
         <string> Artist</string>
        </property>

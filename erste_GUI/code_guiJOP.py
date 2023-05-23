@@ -45,8 +45,6 @@ class paintingWindow(QMainWindow):
         self.setWindowTitle("Painting")
         self.ui = load_ui.loadUi("window22.ui", self) 
     
-        def closeEvent(self, event: QCloseEvent):
-            print ("geschlossen")
 
 #Klasse für Artist-Window
 class artistWindow(QMainWindow):         

@@ -116,14 +116,15 @@ class db_azure(object):
     def get_max_painting_id(self):
         return self.query("SELECT MAX(id) FROM painting", ())[0][0]
     
-    def get_random_painting(self, artist_name=""):
-        if artist_name:
-            artist_id = self.get_artist_id(artist_name)
-            p_ids = self.get_paintingids_from_artist(artist_id)
-            painting_id = random.randint(min(p_ids)[0], max(p_ids)[0])
-        else:
+    def get_random_painting(self, artist_name="", artist_id=0):
+        if not artist_name and not artist_id:
             max_id = self.get_max_painting_id()
             painting_id = random.randint(1, max_id)
+        else:
+            if artist_name:
+                artist_id = self.get_artist_id(artist_name)
+            p_ids = self.get_paintingids_from_artist(artist_id)
+            painting_id = random.randint(min(p_ids)[0], max(p_ids)[0])
         return self.get_painting(painting_id)
             
     def get_paintingids_from_artist(self, artist_id):

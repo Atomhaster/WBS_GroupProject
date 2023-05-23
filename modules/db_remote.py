@@ -79,7 +79,7 @@ class db_azure(object):
         self.query(sql, data)
         
     def get_artist(self, id_art):
-        return self.query(f"SELECT * FROM artist WHERE id = {id_art}",())
+        return self.query(f"SELECT * FROM artist WHERE id = {id_art}",())[0]
         
     def get_artist_id(self, artist_name):
         return self.query(f"SELECT id FROM artist WHERE name = '{artist_name}'",())[0][0]

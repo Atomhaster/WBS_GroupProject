@@ -19,6 +19,9 @@ class artist():
         
     def __eq__(self, __o: object) -> bool:
         return self.id == __o.id
+    
+    def __ne__(self, __o: object) -> bool:
+        return not self.id == __o.id
         
         
 if __name__ == "__main__":

@@ -8,7 +8,7 @@ model = tf.keras.Sequential([keras.layers.Dense(units=1, input_shape=[1])])
 
 # Mit Hilfe von "compile" werden die Ergebnisse der vorangegangen Layers zusammengestellt
 # Der optimizer findet die perfekte Gewichte bis keine numerische Verbresserung mehr erzielt wird
-# D.h er kann ausgelassen werden, wenn die zu prüfenden Daten klar getrennt sind
+# D.h er könnte ausgelassen werden, wenn die zu prüfenden Daten klar getrennt sind
 # Loss kündigt Fehler an
 model.compile(optimizer='sgd', loss='mean_squared_error')
 
@@ -20,6 +20,6 @@ ys = np.array([-2.0, 1.0, 4.0, 7.0, 10.0, 13.0], dtype=float)
 model.fit(xs, ys, epochs=500)
 
 # Hier wird eine Prognose abgegeben 
-print(model.predict([3.0]))
+print(model.predict([5.0]))
 
 

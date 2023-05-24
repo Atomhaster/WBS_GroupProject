@@ -26,10 +26,10 @@ class_names = ["Plane","Car","Bird", "Cat","Deer","Dog","Frog","Horse","Ship","T
 # plt.show()
 
 # reducing the amount of images fed to the model
-training_images = training_images[:20000]
-training_labels = training_labels[:20000]
-testing_images = testing_images[:4000]
-testing_labels = testing_labels[:4000]
+training_images = training_images[:40000]
+training_labels = training_labels[:40000]
+testing_images = testing_images[:8000]
+testing_labels = testing_labels[:8000]
 
 
 # Building the neural network
@@ -61,18 +61,19 @@ testing_labels = testing_labels[:4000]
 # print(f"Loss: {loss}")
 # print(f"Accuracy: {accuracy}")
 
-# model.save("image_classifier1.model")
+# model.save("image_classifier3.model")
 
-model = models.load_model("image_classifier.model")
+model = models.load_model("image_classifier3.model")
 
-img = cv.imread("horse.jpg")
+path = r"G:\WBS - Data Science mit Python\WBS_GroupProject\classification\plane.jpg"
+img = cv.imread(path)
 
-# converting the image from BGR to RGB 
+# # converting the image from BGR to RGB 
 img = cv.cvtColor(img, cv.COLOR_BGR2RGB)
 
 plt.imshow(img, cmap=plt.cm.binary)
 
-# and finally a prediction will be made
+# # and finally a prediction will be made
 prediction = model.predict(np.array([img])/ 255)
 
 index = np.argmax(prediction)

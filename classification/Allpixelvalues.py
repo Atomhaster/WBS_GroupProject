@@ -1,6 +1,6 @@
 import cv2, matplotlib.pyplot as plt
 
-# images are read in the RGB (red, green, blue) format!
+# images are read in the BGR (blue, green, red) format!
 
 def show_image(img):
     plt.imshow(img)

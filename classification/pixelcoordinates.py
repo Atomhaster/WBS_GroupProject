@@ -2,9 +2,8 @@ import cv2 as cv
 
 def find_coord(event, x,y,flags,params):
     if event==cv.EVENT_FLAG_LBUTTON:
-        # showing the pixel using the left mouse click
+        # showing the coordinates on the image using the left mouse click
         print(x,",",y)
-        # printing the pixel values on the image
         font = cv.FONT_HERSHEY_PLAIN
         cv.putText(img,str(x) + ","+ str(y), (x,y),font,1,(255,0,0))
         cv.imshow("image",img)

@@ -14,35 +14,6 @@
    <string>MainWindow</string>
   </property>
   <widget class="QWidget" name="centralwidget">
-   <widget class="QWidget" name="verticalLayoutWidget">
-    <property name="geometry">
-     <rect>
-      <x>60</x>
-      <y>100</y>
-      <width>181</width>
-      <height>131</height>
-     </rect>
-    </property>
-    <layout class="QVBoxLayout" name="verticalLayout">
-     <item>
-      <widget class="QPushButton" name="painting">
-       <property name="text">
-        <string>Choose Painting</string>
-       </property>
-       <property name="checkable">
-        <bool>false</bool>
-       </property>
-      </widget>
-     </item>
-     <item>
-      <widget class="QPushButton" name="artist">
-       <property name="text">
-        <string>Choose Artist</string>
-       </property>
-      </widget>
-     </item>
-    </layout>
-   </widget>
    <widget class="QPushButton" name="enter">
     <property name="geometry">
      <rect>
@@ -51,6 +22,11 @@
       <width>179</width>
       <height>29</height>
      </rect>
+    </property>
+    <property name="font">
+     <font>
+      <pointsize>12</pointsize>
+     </font>
     </property>
     <property name="text">
      <string>Start random</string>
@@ -299,6 +275,24 @@
       </widget>
      </item>
     </layout>
+   </widget>
+   <widget class="QPushButton" name="enter_2">
+    <property name="geometry">
+     <rect>
+      <x>28</x>
+      <y>348</y>
+      <width>221</width>
+      <height>51</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <pointsize>14</pointsize>
+     </font>
+    </property>
+    <property name="text">
+     <string>Vincent van Gogh</string>
+    </property>
    </widget>
   </widget>
   <widget class="QMenuBar" name="menubar">

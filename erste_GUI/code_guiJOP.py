@@ -11,7 +11,8 @@ class MainWindow(QMainWindow):
         self.ui.painting.clicked.connect(self.painting_action) 
         self.ui.artist.clicked.connect(self.artist_action) 
         self.window1_opened=False
-        self.window2_openend=False
+        self.window2_opened=False
+        
 #window1 = Painting-Window = window22.ui
 #window2 = Artist-Window = window33.ui
 
@@ -43,8 +44,8 @@ class paintingWindow(QMainWindow):
     def __init__(self):
         super().__init__()
         self.setWindowTitle("Painting")
-        self.ui = load_ui.loadUi("window22.ui", self) 
-    
+        self.ui = load_ui.loadUi("window22.ui", self)
+        
 
 #Klasse für Artist-Window
 class artistWindow(QMainWindow):         

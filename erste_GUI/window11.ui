@@ -86,7 +86,7 @@ li.checked::marker { content: &quot;\2612&quot;; }
      <string/>
     </property>
     <property name="pixmap">
-     <pixmap>../Frida_Kahlo_19.jpg</pixmap>
+     <pixmap>../example_paintings/Pablo_Picasso_397.jpg</pixmap>
     </property>
     <property name="scaledContents">
      <bool>true</bool>

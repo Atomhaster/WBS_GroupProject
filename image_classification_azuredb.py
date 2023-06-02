@@ -4,8 +4,14 @@ import matplotlib.pyplot as plt
 import tensorflow
 from tensorflow import keras
 from keras import datasets, layers, models
+import os
 
 import modules.painting as painting
+
+
+PATH_TRAINING = os.getcwd() + "\\model_training\\"
+
+print(PATH_TRAINING)
 
 # Dataset from Keras wird importiert und aufgeteilt in training- und testing images/labels
 # (training_images, training_labels), (testing_images, testing_labels) = datasets.cifar10.load_data()
@@ -24,11 +30,11 @@ import modules.painting as painting
 # imgplot = plt.imshow(training_images[item])
 # plt.show()
 
-test_painting = painting.painting(artist_name="Marc Chagall")
-print(test_painting.artist_id)
+# test_painting = painting.painting(artist_name="Marc Chagall")
+# print(test_painting.artist_id)
     
-imgplot = plt.imshow(test_painting.ndarray)
-plt.show()
+# imgplot = plt.imshow(test_painting.ndarray)
+# plt.show()
 
 # print(type(training_images))
 
@@ -53,7 +59,7 @@ plt.show()
 # Max Pooling 2D filters the result from the convolutional layer and simplifies it so that only the essential informations are left
 # Flatten edit the input data so that it looks one dimensional
 # Dense Layer is one where each neurons receives information from all of the neurons of the previous layer
-# model = models.Sequential()
+model = models.Sequential()
 # model.add(layers.Conv2D(32,(3,3),activation="relu",input_shape=(32,32,3)))
 # model.add(layers.MaxPool2D((2,2)))
 # model.add(layers.Conv2D(64,(3,3),activation="relu"))
@@ -77,9 +83,9 @@ plt.show()
 # print(f"Loss: {loss}")
 # print(f"Accuracy: {accuracy}")
 
-# model.save("image_classifier3.model")
+model.save(PATH_TRAINING + "image_classifier3.model")
 
-# model = models.load_model("image_classifier3.model")
+model = models.load_model(PATH_TRAINING + "image_classifier3.model")
 
 # path = r"G:\WBS - Data Science mit Python\WBS_GroupProject\classification\plane.jpg"
 # img = cv.imread(path)

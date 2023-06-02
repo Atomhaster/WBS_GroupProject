@@ -1,7 +1,7 @@
 import os
 import matplotlib.pyplot as plt
-import modules.db_remote as db
 import csv
+from ..modules import db_remote as db
 
 ## comment use of this script:  ########################################################
 ##  download the archive from

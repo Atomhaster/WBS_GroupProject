@@ -1,13 +1,13 @@
-import modules.database as db
-import matplotlib.pyplot as plt
-import cv2
+from PyQt6.QtWidgets import QApplication
+from modules.GUI import MainWindow
+import os
+
+LOCAL_PATH = os.getcwd()
+
+print(LOCAL_PATH)
 
 
-im = plt.imread("Frida_Kahlo_19.jpg")
-# while True:
-    # plt.imshow(im)
-    # plt.show()
-    # break
-    
-print(type(im))
-print(im.shape)
+app = QApplication([])
+window = MainWindow(LOCAL_PATH)
+window.show()
+app.exec()   

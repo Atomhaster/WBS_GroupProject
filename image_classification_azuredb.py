@@ -13,8 +13,18 @@ PATH_TRAINING = os.getcwd() + "\\model_training\\"
 
 print(PATH_TRAINING)
 
+
+
 # Dataset from Keras wird importiert und aufgeteilt in training- und testing images/labels
-# (training_images, training_labels), (testing_images, testing_labels) = datasets.cifar10.load_data()
+(training_images, training_labels), (testing_images, testing_labels) = datasets.cifar10.load_data()
+
+print(type(training_images))
+print(training_images.ndim)
+print(training_images.shape)
+print(training_images[1].shape)
+img1 = training_images[1]
+imgplot = plt.imshow(img1)
+plt.show()
 
 # # the pixels on an image are rescaled from 0-255 to 0-1 
 # training_images, testing_images = training_images/ 255, testing_images/255 
@@ -30,11 +40,13 @@ print(PATH_TRAINING)
 # imgplot = plt.imshow(training_images[item])
 # plt.show()
 
-# test_painting = painting.painting(artist_name="Marc Chagall")
-# print(test_painting.artist_id)
+test_painting = painting.painting(artist_name="Marc Chagall")
+print(test_painting.artist_id)
     
-# imgplot = plt.imshow(test_painting.ndarray)
-# plt.show()
+print(test_painting.ndarray.shape)
+imgplot = plt.imshow(test_painting.ndarray)
+plt.show()
+print(test_painting.artist_id)
 
 # print(type(training_images))
 
@@ -59,7 +71,7 @@ print(PATH_TRAINING)
 # Max Pooling 2D filters the result from the convolutional layer and simplifies it so that only the essential informations are left
 # Flatten edit the input data so that it looks one dimensional
 # Dense Layer is one where each neurons receives information from all of the neurons of the previous layer
-model = models.Sequential()
+# model = models.Sequential()
 # model.add(layers.Conv2D(32,(3,3),activation="relu",input_shape=(32,32,3)))
 # model.add(layers.MaxPool2D((2,2)))
 # model.add(layers.Conv2D(64,(3,3),activation="relu"))
@@ -83,9 +95,9 @@ model = models.Sequential()
 # print(f"Loss: {loss}")
 # print(f"Accuracy: {accuracy}")
 
-model.save(PATH_TRAINING + "image_classifier3.model")
+# model.save(PATH_TRAINING + "image_classifier3.model")
 
-model = models.load_model(PATH_TRAINING + "image_classifier3.model")
+# model = models.load_model(PATH_TRAINING + "image_classifier3.model")
 
 # path = r"G:\WBS - Data Science mit Python\WBS_GroupProject\classification\plane.jpg"
 # img = cv.imread(path)

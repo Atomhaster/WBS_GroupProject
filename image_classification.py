@@ -1,30 +1,70 @@
 import cv2 as cv
 import numpy as np
 import matplotlib.pyplot as plt
-import tensorflow
+# import tensorflow
 from tensorflow import keras
 from keras import datasets, layers, models
-import os
+import os, random, csv
 
-import modules.painting as painting
+from modules.painting import painting
+from modules.database import database as db
 
-
-PATH_TRAINING = os.getcwd() + "\\model_training\\"
-
-print(PATH_TRAINING)
-
-
+# setting path variables for Working Directory and folder to save and load
+#   models from.
+WD_PATH =  os.path.split(os.path.abspath(__file__))[0]
+PATH_TRAINING = os.path.join(WD_PATH, "model_training")
 
 # Dataset from Keras wird importiert und aufgeteilt in training- und testing images/labels
-(training_images, training_labels), (testing_images, testing_labels) = datasets.cifar10.load_data()
+# (training_images, training_labels), (testing_images, testing_labels) = datasets.cifar10.load_data()
 
-print(type(training_images))
-print(training_images.ndim)
-print(training_images.shape)
-print(training_images[1].shape)
-img1 = training_images[1]
-imgplot = plt.imshow(img1)
-plt.show()
+### exploring datashape #####
+# print(type(training_images))
+# print(training_images.ndim)
+# print(training_images.shape)
+# print(testing_images.shape)
+# print(training_images[1].shape)
+# img1 = training_images[1]
+# imgplot = plt.imshow(img1)
+# plt.show()
+# print(training_images[0][0])
+
+
+#### getting paintings from our db
+# test_painting = painting("local DB")
+# print(test_painting.artist_id)
+# print(test_painting.id)
+# imgplot = plt.imshow(test_painting.ndarray)
+# plt.show()
+
+gallery = db()
+# print(gallery.get_artist_id("Pablo Picasso"))
+
+SIZE_TRAINING = 190
+SIZE_TESTING = 38
+
+
+testing_images = np.zeros((10*SIZE_TRAINING,500,500,3))
+index_testing = 0
+for i in range(6,7):
+    ids = gallery.get_paintingids_from_artist(i)
+    random.seed(1983)
+    random.shuffle(ids)
+    ids_training = ids[ : SIZE_TRAINING]
+    ids_testing = ids[SIZE_TRAINING : SIZE_TRAINING + SIZE_TESTING]
+    ids_unused = ids[SIZE_TRAINING + SIZE_TESTING : ]
+    for j in ids_testing:
+        temp_p = painting("local DB", id=j[0])
+        temp_p_res = cv.resize(temp_p.ndarray, dsize=(500,500)
+                               ,interpolation=cv.INTER_CUBIC)
+        testing_images[index_testing] = temp_p_res
+        
+
+print(testing_images.shape)
+
+
+
+
+
 
 # # the pixels on an image are rescaled from 0-255 to 0-1 
 # training_images, testing_images = training_images/ 255, testing_images/255 
@@ -39,14 +79,6 @@ plt.show()
 
 # imgplot = plt.imshow(training_images[item])
 # plt.show()
-
-test_painting = painting.painting(artist_name="Marc Chagall")
-print(test_painting.artist_id)
-    
-print(test_painting.ndarray.shape)
-imgplot = plt.imshow(test_painting.ndarray)
-plt.show()
-print(test_painting.artist_id)
 
 # print(type(training_images))
 
@@ -95,9 +127,9 @@ print(test_painting.artist_id)
 # print(f"Loss: {loss}")
 # print(f"Accuracy: {accuracy}")
 
-# model.save(PATH_TRAINING + "image_classifier3.model")
+# model.save(os.path.join(PATH_TRAINING,"image_classifier3.model"))
 
-# model = models.load_model(PATH_TRAINING + "image_classifier3.model")
+# model = models.load_model(os.path.join(PATH_TRAINING,"image_classifier3.model"))
 
 # path = r"G:\WBS - Data Science mit Python\WBS_GroupProject\classification\plane.jpg"
 # img = cv.imread(path)

@@ -1,9 +1,17 @@
-import modules.db_remote as db
+import modules.db_remote as db_remote
+import modules.database as db_local
 
 class painting():
     
-    def __init__(self, id=0, **args) -> None:
-        gallery = db.db_azure()
+    def __init__(self, db_type, id=0, **args) -> None:
+        if db_type == "remote DB":
+            gallery = db_remote.db_azure()
+        elif db_type == "local DB":
+            gallery = db_local.database()
+        else:
+            print("value of argument db_type not recognized."
+                    + " Try 'remote' or 'local' instead")
+            return False
         db_entry = ()
         if id:
             db_entry = gallery.get_painting(id)
@@ -28,7 +36,9 @@ class painting():
         # flip the image to identify different variations
         
 if __name__ == "__main__":
-    test_painting = painting(artist_name="Marc Chagall")
+    import database as db_local
+    import db_remote as db_remote
+    test_painting = painting("local DB",id=2409)
     print(test_painting.artist_id)
     
     import matplotlib.pyplot as plt

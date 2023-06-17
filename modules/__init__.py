@@ -1,1 +1,1 @@
-__all__ = ["database",]
+__all__ = ["artist","database","db_remote","GUI","painting"]

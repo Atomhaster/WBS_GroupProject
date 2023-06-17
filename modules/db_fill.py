@@ -1,7 +1,10 @@
 import os
+from pathlib import Path
 import matplotlib.pyplot as plt
 import csv
-from ..modules import db_remote as db
+# import db_remote as db
+import database as db
+
 
 ## comment use of this script:  ########################################################
 ##  download the archive from
@@ -11,7 +14,11 @@ from ..modules import db_remote as db
 ## save the file again as csv. Change the value of artists_small if necessary
 
 # absolute path where the picture archive from best art work of all time was unzipped
-FOLDER_PATH = "C:/Users/bvondewitz/Downloads/archive"
+# FOLDER_PATH = "C:/Users/bvondewitz/Downloads/archive"
+# setting path variable for Working Directory and  
+WD_PATH =  os.path.split(os.path.abspath(__file__))[0]
+USER_DOWNLOAD =  os.path.join(Path.home(), "Downloads")
+FOLDER_PATH = os.path.join(USER_DOWNLOAD, "archive")
 
 # file name of the artists.csv with reduced columns
 FILE_CSV = "artists_small.csv"
@@ -38,7 +45,7 @@ def get_all_filenames(artist) -> list:
 def get_all_artist_names():
     """returns all artists having a folder. I've exlcuded Albrecht Dürer"""
     global FOLDER_PATH
-    path_temp = FOLDER_PATH + f"/images/images"
+    path_temp = os.path.join(FOLDER_PATH ,"images\\images")
     f = []
     for (dirpath, dirnames, filenames) in os.walk(path_temp):
         f.extend(dirnames)
@@ -114,7 +121,9 @@ def add_pictures_to_db(artist_list, gallery, resized=False):
 
 ARTISTS = get_all_artist_names()
 
-print_artist_minpainting(200)
+# print(ARTISTS)
+
+# print_artist_minpainting(200)
 
 #  artists with more than 200 paintings available   
 #  Alfred_Sisley           259
@@ -134,35 +143,96 @@ print_artist_minpainting(200)
 # reading content of the csv (needed for further steps)
 csv_artists = read_csv_artists_content(FILE_CSV, 200)
 # printing the list selected
-print("\n\n","content selected csv file \n")
-for i, j in csv_artists.items():
-    print("{:<25}{}".format(i,j))
+# print("\n\n","content selected csv file \n")
+# for i, j in csv_artists.items():
+#     print("{:<25}{}".format(i,j))
+
+
+#______________________________________________________________________
+#  FROM HERE TWO POSSIBLE WAYS TO GO                                   
+#______________________________________________________________________
+#
+#  There is the possibility to use this script to fill a remote DB
+#  running in Azure with the db_remote module, or to create a local
+#  db instance with a file the DB lives in, with the database module.
+#  Bevor running the script comment out one of the possibilities.
+#  Please also make sure you comment out the related import statement
+#  at the very beginning of this script.
+
+
+#_____________________________________________________________________________
+##  POSSIBILITY 1  LOCAL DB   with sqlite3
+#_____________________________________________________________________________
 
 # making the object of our type database (holds also the connection to the db
 #       needed for further steps)
-gallery = db.db_azure()
+# for local creation of DB use:
+gallery = db.database()
 
-# adding the two tables to the database
-gallery.create_table_artist()
-gallery.create_table_painting()
+# adding artists to db
+# for j, i in csv_artists.items():
+#     gallery.add_artist(
+#         j, i[2], i[0], i[1], i[3], i[4]
+#     )
 
-# adding all artists to the database
-add_artists_to_db(csv_artists, gallery)
-    
 # checking if artists are in database
 print("\nAll artists existing in db")
 all_artist_db = gallery.get_all_artists()
 for row in all_artist_db:
     print(row)
 
+# adding the paintings to the db
+# for name in csv_artists.keys():
+#     print("adding paintings of: " + name)
+#     name_underscore = name.replace(" ", "_")
+#     file_names = get_all_filenames(name_underscore)
+#     print(len(file_names), " paintings found")
+#     for paint in file_names:
+#         ###  with the original image files, the database is getting 12 GB big. ###
+#         # full_path = FOLDER_PATH + "/images/images/" + name_underscore + "/" + paint
+#         ###   resized images still big with 4.5 GB.
+#         full_path = FOLDER_PATH + "/resized/resized/" + paint
+#         im = plt.imread(full_path)
+#         gallery.add_painting(im, name)
+#         print("+", end=" ")
+#     print("\n")
+
+## check how many paintings are in the db:
+# count_all_paintings = gallery.query("SELECT COUNT(id) FROM painting", ())
+# print(count_all_paintings[0][0]) # 3971
+
+
+
+
+#______________________________________________________________________________
+### POSSIBILITY 2 REMOTE AZURE DB
+#______________________________________________________________________________
+# making the object of our type database (holds also the connection to the db
+#       needed for further steps)
+# for azue reomte DB use:
+# gallery = db.db_azure()
+
+# adding the two tables to the database
+# gallery.create_table_artist()
+# gallery.create_table_painting()
+
+# adding all artists to the database
+# add_artists_to_db(csv_artists, gallery)
+    
+# checking if artists are in database
+# print("\nAll artists existing in db")
+# all_artist_db = gallery.get_all_artists()
+# for row in all_artist_db:
+#     print(row)
+
 # adding the pictures of the selected artists to the database
 
-add_pictures_to_db(csv_artists, gallery)
+# add_pictures_to_db(csv_artists, gallery)
 ###  with the original image files, the database is getting 12 GB big. ###
 
-add_pictures_to_db(csv_artists, gallery, resized=True)
+# add_pictures_to_db(csv_artists, gallery, resized=True)
 ###   resized images still big with 4.5 GB.
     
 ## check how many paintings are in the db:
-count_all_paintings = gallery.query("SELECT COUNT(id) FROM painting", ())
-print(count_all_paintings[0][0]) # 3971
+# count_all_paintings = gallery.query("SELECT COUNT(id) FROM painting", ())
+# print(count_all_paintings[0][0]) # 3971

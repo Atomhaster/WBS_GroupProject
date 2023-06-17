@@ -1,6 +1,7 @@
 import sqlite3
 import numpy
 import io
+import random
 
 class database(object):
     db_name = "artgallery.db"
@@ -44,6 +45,10 @@ class database(object):
     def query(self, query, params):
         self.db_cur.execute(query, params)
         return self.db_cur.fetchall()
+    
+    def drop_all(self):
+        self.query("DROP TABLE painting", ())
+        self.query("DROP TABLE artist", ())
         
     def add_artist(self, name, genre, birth, death, nationality, num_paintings):
         sql = """INSERT INTO artist(name, genre, birth, death, nationality, number_of_paintings)
@@ -60,7 +65,7 @@ class database(object):
             numpy.save(out, arr)
             out.seek(0)
             return sqlite3.Binary(out.read())
-        artist_id = self.get_artist_id(artist)[0][0]
+        artist_id = self.get_artist_id(artist)
         size_width = painting.shape[1]
         size_height = painting.shape[0]
         painting_blob = adapt_array(painting)
@@ -83,7 +88,21 @@ class database(object):
         output = self.db_cur.fetchall()
         output[0] = output[0][:-1] + (convert_array(output[0][4]),)
         return output[0]
-
+    
+    def get_random_painting(self, artist_name="", artist_id=0):
+        if not artist_name and not artist_id:
+            max_id = self.get_max_painting_id()
+            painting_id = random.randint(1, max_id)
+        else:
+            if artist_name:
+                artist_id = self.get_artist_id(artist_name)
+            p_ids = self.get_paintingids_from_artist(artist_id)
+            painting_id = random.randint(min(p_ids)[0], max(p_ids)[0])
+        return self.get_painting(painting_id)
+    
+    def get_max_painting_id(self):
+        return self.query("SELECT MAX(id) FROM painting", ())[0][0]
+    
     def get_artist(self, id_art):
         statement = f"SELECT * FROM artist WHERE id = {id_art}"
         self.db_cur.execute(statement)
@@ -92,20 +111,19 @@ class database(object):
     def get_artist_id(self, artist_name):
         statement = f"SELECT id FROM artist WHERE name = '{artist_name}'"
         self.db_cur.execute(statement)
-        return self.db_cur.fetchall()
+        return self.db_cur.fetchall()[0][0]
     
     def get_all_artists(self):
         statement = f"SELECT * FROM artist"
         self.db_cur.execute(statement)
         return self.db_cur.fetchall()
-
-    def delete_artist(self, ):
-        # delted artist from db
-        pass
     
+    def get_paintingids_from_artist(self, artist_id):
+        return self.query(f"SELECT ID FROM painting WHERE artist_id = {artist_id}", ())
     
 if __name__ == "__main__":
     gallery = database()
     count_all_paintings = gallery.query("SELECT COUNT(id) FROM painting", ())
     print(count_all_paintings[0][0]) # 3971
+    print(gallery.get_max_painting_id())
     

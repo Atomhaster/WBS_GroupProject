@@ -1,7 +1,7 @@
 import cv2 as cv
 import numpy as np
 import matplotlib.pyplot as plt
-# import tensorflow
+import tensorflow
 from tensorflow import keras
 from keras import datasets, layers, models
 import os, random, csv
@@ -14,19 +14,6 @@ from modules.database import database as db
 WD_PATH =  os.path.split(os.path.abspath(__file__))[0]
 PATH_TRAINING = os.path.join(WD_PATH, "model_training")
 
-# Dataset from Keras wird importiert und aufgeteilt in training- und testing images/labels
-# (training_images, training_labels), (testing_images, testing_labels) = datasets.cifar10.load_data()
-
-### exploring datashape #####
-# print(type(training_images))
-# print(training_images.ndim)
-# print(training_images.shape)
-# print(testing_images.shape)
-# print(training_images[1].shape)
-# img1 = training_images[1]
-# imgplot = plt.imshow(img1)
-# plt.show()
-# print(training_images[0][0])
 
 
 #### getting paintings from our db
@@ -51,8 +38,8 @@ training_images = np.zeros((10*SIZE_TRAINING,500,500,3))
 index_training = 0
 skip_count_training = 0
 # creating the arrays to hold labels. In this case they are the artist ids.
-testing_labels = np.zeros((10*SIZE_TESTING))
-training_labels = np.zeros((10*SIZE_TRAINING))
+testing_labels = np.zeros((10*SIZE_TESTING,1))
+training_labels = np.zeros((10*SIZE_TRAINING,1))
 
 # filling the arrays with picture arrays. They will be resized according
 # to the pixel_size value
@@ -70,7 +57,7 @@ for i in range(1,11):
                                ,interpolation=cv.INTER_CUBIC)
         if temp_p_res.shape == (PIXEL_SIZE,PIXEL_SIZE,3):
             testing_images[index_testing] = temp_p_res
-            testing_labels[index_testing] = temp_p.artist_id
+            testing_labels[index_testing] = [temp_p.artist_id,]
             index_testing += 1
         else:
             skip_count_testing += 1
@@ -83,7 +70,7 @@ for i in range(1,11):
                                ,interpolation=cv.INTER_CUBIC)
         if temp_p_res.shape == (PIXEL_SIZE,PIXEL_SIZE,3):
             training_images[index_training] = temp_p_res
-            training_labels[index_training] = temp_p.artist_id
+            training_labels[index_training] = [temp_p.artist_id,]
             index_training += 1
         else:
             skip_count_training += 1
@@ -101,9 +88,60 @@ print(testing_labels.shape)
 testing_images = testing_images[:index_testing,:,:,:]
 print(testing_images.shape)
 
+# the pixels on an image are rescaled from 0-255 to 0-1 
+training_images, testing_images = training_images/255, testing_images/255 
+
+
+# ## optional save and load the arrays.
+# ## save ##
+# with open("TEMP_arrays.npy", "wb") as f:
+#     np.save(f, training_images)
+#     np.save(f, training_labels)
+#     np.save(f, testing_images)
+# #     np.save(f, testing_labels)
+# with open("TEMP_arrays.npy", "rb") as f:
+#     training_images = np.load(f)
+#     training_labels = np.load(f)
+#     testing_images = np.load(f)
+#     testing_labels = np.load(f)
+
+
+# defining labels in a list
+class_names = [i[1] for i in gallery.get_all_artists()]
+
+print(int(training_labels[4][0]))
+print(training_images.shape)
+
+for i in range(9):
+    plt.subplot(3,3,i+1)
+    plt.xticks([])
+    plt.xticks([])
+    plt.imshow(training_images[i],cmap=plt.cm.binary)
+    plt.xlabel(class_names[int(training_labels[i][0])])
+    
+plt.show()
+
+###____________________________________________________________________________
+### original from Mo with loaded example data set:
+###____________________________________________________________________________
+
+# Dataset from Keras wird importiert und aufgeteilt in training- und testing images/labels
+# (training_images, training_labels), (testing_images, testing_labels) = datasets.cifar10.load_data()
+
+### exploring datashape #####
+# print(type(training_images))
+# print(training_images.ndim)
+# print(training_images.shape)
+# print(testing_images.shape)
+# print(training_images[1].shape)
+# img1 = training_images[1]
+# imgplot = plt.imshow(img1)
+# plt.show()
+# print(training_images[0][0])
+
 
 # # the pixels on an image are rescaled from 0-255 to 0-1 
-# training_images, testing_images = training_images/ 255, testing_images/255 
+# training_images, testing_images = training_images/255, testing_images/255 
 
 # # defining labels in a list
 # class_names = ["Plane","Car","Bird", "Cat","Deer","Dog","Frog","Horse","Ship","Truck"]
@@ -118,6 +156,8 @@ print(testing_images.shape)
 
 # print(type(training_images))
 
+# print(training_labels[0])
+# print(training_labels.shape)
 # for i in range(16):
 #     plt.subplot(4,4,i+1)
 #     plt.xticks([])

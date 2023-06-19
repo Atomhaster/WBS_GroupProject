@@ -176,26 +176,26 @@ gallery = db.database()
 #     )
 
 # checking if artists are in database
-print("\nAll artists existing in db")
-all_artist_db = gallery.get_all_artists()
-for row in all_artist_db:
-    print(row)
+# print("\nAll artists existing in db")
+# all_artist_db = gallery.get_all_artists()
+# for row in all_artist_db:
+#     print(row)
 
 # adding the paintings to the db
-# for name in csv_artists.keys():
-#     print("adding paintings of: " + name)
-#     name_underscore = name.replace(" ", "_")
-#     file_names = get_all_filenames(name_underscore)
-#     print(len(file_names), " paintings found")
-#     for paint in file_names:
-#         ###  with the original image files, the database is getting 12 GB big. ###
-#         # full_path = FOLDER_PATH + "/images/images/" + name_underscore + "/" + paint
-#         ###   resized images still big with 4.5 GB.
-#         full_path = FOLDER_PATH + "/resized/resized/" + paint
-#         im = plt.imread(full_path)
-#         gallery.add_painting(im, name)
-#         print("+", end=" ")
-#     print("\n")
+for name in csv_artists.keys():
+    print("adding paintings of: " + name)
+    name_underscore = name.replace(" ", "_")
+    file_names = get_all_filenames(name_underscore)
+    print(len(file_names), " paintings found")
+    for paint in file_names:
+        ###  with the original image files, the database is getting 12 GB big. ###
+        # full_path = FOLDER_PATH + "/images/images/" + name_underscore + "/" + paint
+        ###   resized images still big with 4.5 GB.
+        full_path = FOLDER_PATH + "/resized/resized/" + paint
+        im = plt.imread(full_path)
+        gallery.add_painting(im, name)
+        print("+", end=" ")
+    print("\n")
 
 ## check how many paintings are in the db:
 # count_all_paintings = gallery.query("SELECT COUNT(id) FROM painting", ())

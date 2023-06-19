@@ -39,7 +39,7 @@ if __name__ == "__main__":
     import database as db_local
     import db_remote as db_remote
     test_painting = painting("local DB",id=2409)
-    print(test_painting.artist_id)
+    print(type(test_painting.artist_id))
     
     import matplotlib.pyplot as plt
     imgplot = plt.imshow(test_painting.ndarray)

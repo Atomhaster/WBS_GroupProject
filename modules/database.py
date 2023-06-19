@@ -78,7 +78,7 @@ class database(object):
         self.query(sql, data)
         self.connection.commit()
     
-    def get_painting(self, id_pic) -> tuple[int,str,int,int,numpy.ndarray]:
+    def get_painting(self, id_pic) -> tuple[int,int,int,int,numpy.ndarray]:
         def convert_array(text):
             out = io.BytesIO(text)
             out.seek(0)
@@ -123,7 +123,13 @@ class database(object):
     
 if __name__ == "__main__":
     gallery = database()
-    count_all_paintings = gallery.query("SELECT COUNT(id) FROM painting", ())
-    print(count_all_paintings[0][0]) # 3971
-    print(gallery.get_max_painting_id())
+    # painting = gallery.get_painting(265)
+    # for i in painting[:4]:
+    #     print(i)
+    #     print(type(i))
+    class_names = [i[1] for i in gallery.get_all_artists()]
+    print(class_names[0])
+    # count_all_paintings = gallery.query("SELECT COUNT(id) FROM painting", ())
+    # print(count_all_paintings[0][0]) # 3971
+    # print(gallery.get_max_painting_id())
     

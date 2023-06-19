@@ -36,16 +36,28 @@ PATH_TRAINING = os.path.join(WD_PATH, "model_training")
 # imgplot = plt.imshow(test_painting.ndarray)
 # plt.show()
 
+# initializing the database object
 gallery = db()
-# print(gallery.get_artist_id("Pablo Picasso"))
 
+### How many pictures should be used per artist
 SIZE_TRAINING = 190
 SIZE_TESTING = 38
 
-
-testing_images = np.zeros((10*SIZE_TRAINING,500,500,3))
+## creating arrays to hold the pictures taken from the DB
+testing_images = np.zeros((10*SIZE_TESTING,500,500,3))
 index_testing = 0
-for i in range(6,7):
+skip_count_testing = 0
+training_images = np.zeros((10*SIZE_TRAINING,500,500,3))
+index_training = 0
+skip_count_training = 0
+# creating the arrays to hold labels. In this case they are the artist ids.
+testing_labels = np.zeros((10*SIZE_TESTING))
+training_labels = np.zeros((10*SIZE_TRAINING))
+
+# filling the arrays with picture arrays. They will be resized according
+# to the pixel_size value
+PIXEL_SIZE = 500
+for i in range(1,11):
     ids = gallery.get_paintingids_from_artist(i)
     random.seed(1983)
     random.shuffle(ids)
@@ -54,16 +66,40 @@ for i in range(6,7):
     ids_unused = ids[SIZE_TRAINING + SIZE_TESTING : ]
     for j in ids_testing:
         temp_p = painting("local DB", id=j[0])
-        temp_p_res = cv.resize(temp_p.ndarray, dsize=(500,500)
+        temp_p_res = cv.resize(temp_p.ndarray, dsize=(PIXEL_SIZE,PIXEL_SIZE)
                                ,interpolation=cv.INTER_CUBIC)
-        testing_images[index_testing] = temp_p_res
-        
+        if temp_p_res.shape == (PIXEL_SIZE,PIXEL_SIZE,3):
+            testing_images[index_testing] = temp_p_res
+            testing_labels[index_testing] = temp_p.artist_id
+            index_testing += 1
+        else:
+            skip_count_testing += 1
+    print("Testing images status")
+    print(index_testing)
+    print(skip_count_testing)
+    for k in ids_training:
+        temp_p = painting("local DB", id=j[0])
+        temp_p_res = cv.resize(temp_p.ndarray, dsize=(PIXEL_SIZE,PIXEL_SIZE)
+                               ,interpolation=cv.INTER_CUBIC)
+        if temp_p_res.shape == (PIXEL_SIZE,PIXEL_SIZE,3):
+            training_images[index_training] = temp_p_res
+            training_labels[index_training] = temp_p.artist_id
+            index_training += 1
+        else:
+            skip_count_training += 1
+    print("Training images status")
+    print(index_training)
+    print(skip_count_training)
 
+print(training_images.shape)
+print(training_labels.shape)
 print(testing_images.shape)
+print(testing_labels.shape)
 
-
-
-
+## dropping the last few array positions of testing images, which where 
+## not filled.
+testing_images = testing_images[:index_testing,:,:,:]
+print(testing_images.shape)
 
 
 # # the pixels on an image are rescaled from 0-255 to 0-1 

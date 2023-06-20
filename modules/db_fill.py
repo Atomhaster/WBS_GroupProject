@@ -170,10 +170,10 @@ csv_artists = read_csv_artists_content(FILE_CSV, 200)
 gallery = db.database()
 
 # adding artists to db
-# for j, i in csv_artists.items():
-#     gallery.add_artist(
-#         j, i[2], i[0], i[1], i[3], i[4]
-#     )
+for j, i in csv_artists.items():
+    gallery.add_artist(
+        j, i[2], i[0], i[1], i[3], i[4]
+    )
 
 # checking if artists are in database
 # print("\nAll artists existing in db")

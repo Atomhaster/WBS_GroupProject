@@ -139,8 +139,8 @@ print(testing_labels.shape) # (50,1)
 print(training_labels.shape) # (200,1)
 
 # Convert integer labels to one-hot encoded format
-training_labels = to_categorical(training_labels)
-testing_labels = to_categorical(testing_labels)
+# training_labels = to_categorical(training_labels)
+# testing_labels = to_categorical(testing_labels)
 
 # Building the neural network
 # adding convolutional layers
@@ -174,7 +174,7 @@ model.add(layers.MaxPooling2D((2,2)))
 # Add more convolutional layers or any other layers here
 
 model.add(layers.Flatten())
-model.add(layers.Dense(10)) # Output layer with NUM_CLASSES neurons where NUM_CLASSES is number of classses present in dataset 
+model.add(layers.Dense(1)) # Output layer with NUM_CLASSES neurons where NUM_CLASSES is number of classses present in dataset 
 model.compile(optimizer="adam",loss="sparse_categorical_crossentropy",metrics=["accuracy"])
 
 # Train model assuming training_labels and testing_labels are integer arrays instead one-hot encoded arrays 
@@ -187,7 +187,7 @@ loss,accuracy = model.evaluate(testing_images, testing_labels)
 print(f"Loss: {loss}")
 print(f"Accuracy: {accuracy}")
 
-model.save(os.path.join(PATH_TRAINING,"image_classifier_gallery1.model"))
+# model.save(os.path.join(PATH_TRAINING,"image_classifier_gallery1.model"))
 
 
 ###____________________________________________________________________________

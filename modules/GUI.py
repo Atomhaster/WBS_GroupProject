@@ -21,7 +21,6 @@ class MainWindow(QMainWindow):
         self.window2_opened=False
         
         example_painting1 = painting(db_type="remote DB",artist_name="Pablo Picasso")
-        print(example_painting1.ndarray.shape)
         # print(example_painting1.ndarray.shape[1]
         #                , example_painting1.ndarray.shape[0])
         # print(example_painting1.ndarray.dtype)
@@ -41,7 +40,6 @@ class MainWindow(QMainWindow):
         
         
         example_painting2 = painting(db_type="remote DB",artist_name="Vincent van Gogh")
-        print(example_painting2.ndarray.shape)
         qimg2 = QImage(example_painting2.ndarray
                        , example_painting2.ndarray.shape[1]
                        , example_painting2.ndarray.shape[0]

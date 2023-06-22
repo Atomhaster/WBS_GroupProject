@@ -155,7 +155,7 @@ if __name__ == "__main__":
     # plt.show()
     
     
-    im = db.get_random_painting()[4]
+    im = db.get_random_painting("Pablo Picasso")[4]
     # print(type(im))
     imgplot = plt.imshow(im)
     plt.show()

@@ -1,4 +1,4 @@
-import db_remote as db
+import modules.db_remote as db
 
 class artist():
     

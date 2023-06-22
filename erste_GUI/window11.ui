@@ -86,7 +86,7 @@ li.checked::marker { content: &quot;\2612&quot;; }
      <string/>
     </property>
     <property name="pixmap">
-     <pixmap>../example_paintings/Pablo_Picasso_397.jpg</pixmap>
+     <pixmap>../example_paintings/Pablo_Picasso_412.jpg</pixmap>
     </property>
     <property name="scaledContents">
      <bool>true</bool>
@@ -105,7 +105,7 @@ li.checked::marker { content: &quot;\2612&quot;; }
      <string/>
     </property>
     <property name="pixmap">
-     <pixmap>../example_paintings/Vincent_van_Gogh_278.jpg</pixmap>
+     <pixmap>../example_paintings/Vincent_van_Gogh_210.jpg</pixmap>
     </property>
     <property name="scaledContents">
      <bool>true</bool>

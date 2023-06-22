@@ -1,6 +1,7 @@
 from PyQt6.QtWidgets import QMainWindow, QApplication, QPushButton, QWidget, QHBoxLayout
 from PyQt6.uic import load_ui
-from PyQt6.QtGui import QCloseEvent    
+from PyQt6.QtGui import QCloseEvent
+from ..modules import db_fill
 
 class MainWindow(QMainWindow):
     def __init__(self):
@@ -45,16 +46,13 @@ class paintingWindow(QMainWindow):
         super().__init__()
         self.setWindowTitle("Painting")
         self.ui = load_ui.loadUi("window22.ui", self)
-        
-
+    
 #Klasse für Artist-Window
 class artistWindow(QMainWindow):         
     def __init__(self):
         super().__init__()
         self.setWindowTitle("Artist")
         self.ui = load_ui.loadUi("window33.ui", self)
-
-
       
 app = QApplication([])
 window = MainWindow()

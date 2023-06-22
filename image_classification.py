@@ -245,9 +245,11 @@ print(f"Accuracy: {accuracy}")
 
 # Building the neural network
 # adding convolutional layers
-# Max Pooling 2D filters the result from the convolutional layer and simplifies it so that only the essential informations are left
+# Max Pooling 2D filters the result from the convolutional layer and simplifies
+# it so that only the essential informations are left
 # Flatten edit the input data so that it looks one dimensional
-# Dense Layer is one where each neurons receives information from all of the neurons of the previous layer
+# Dense Layer is one where each neurons receives information from all of the
+# neurons of the previous layer
 # model = models.Sequential()
 # model.add(layers.Conv2D(32,(3,3),activation="relu",input_shape=(32,32,3)))
 # model.add(layers.MaxPool2D((2,2)))
@@ -263,7 +265,8 @@ print(f"Accuracy: {accuracy}")
 # model.compile(optimizer="adam",loss="sparse_categorical_crossentropy",metrics=["accuracy"])
 
 # Here the data will be fed to the model
-# epcohs seperate the training of data into different sessions, so that the same input data (images) are trained mutliple times 
+# epcohs seperate the training of data into different sessions,
+# so that the same input data (images) are trained mutliple times 
 # model.fit(training_images,training_labels,batch_size = 1,epochs=10, validation_data=(testing_images,testing_labels))
 
 

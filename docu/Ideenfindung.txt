@@ -8,6 +8,7 @@
 Grund Idee ist also die image Classification.
 Anfange wollen wir mit dem Datensatz von:
 https://www.kaggle.com/datasets/ikarus777/best-artworks-of-all-time
+https://www.kaggle.com/code/valentinmmueller/artist-classification
 
 nach ähnlichem Shema wie:
 https://www.kaggle.com/code/supratimhaldar/deepartist-identify-artist-from-art

@@ -55,11 +55,11 @@ class MainWindow(QMainWindow):
     
     def load_painting(self,artist_name=None, id=None):
         if id:
-            painting_temp = painting(db_type="remote DB",id=id)
+            painting_temp = painting(db_type="local DB",id=id)
         elif artist_name:
-            painting_temp = painting(db_type="remote DB",artist_name=artist_name)
+            painting_temp = painting(db_type="local DB",artist_name=artist_name)
         else:
-            painting_temp = painting(db_type="remote DB")
+            painting_temp = painting(db_type="local DB")
         qimg2 = QImage(painting_temp.ndarray
                        , painting_temp.ndarray.shape[1]
                        , painting_temp.ndarray.shape[0]

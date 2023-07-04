@@ -20,36 +20,13 @@ class MainWindow(QMainWindow):
         self.window1_opened=False
         self.window2_opened=False
         
-        example_painting1 = painting(db_type="remote DB",artist_name="Pablo Picasso")
-        # print(example_painting1.ndarray.shape[1]
-        #                , example_painting1.ndarray.shape[0])
-        # print(example_painting1.ndarray.dtype)
-        # print(np.dtype('<i4').byteorder)
-        # img_fe = plt.imshow(example_painting1.ndarray)
-        # plt.show()
-        qimg1 = QImage(example_painting1.ndarray
-                       , example_painting1.ndarray.shape[1]
-                       , example_painting1.ndarray.shape[0]
-                       , example_painting1.ndarray.shape[1] * 3
-                       , QImage.Format.Format_RGB888
-                       )
-        qpixmap1 = QPixmap.fromImage(qimg1)
-        # qpixmap1 = qpixmap1.scaled(100,100)
+        example_painting1 = self.load_painting(artist_name="Pablo Picasso")
         p1 = self.ui.findChild(QLabel, "painting1")
-        p1 = p1.setPixmap(qpixmap1)
+        p1 = p1.setPixmap(example_painting1)
         
-        
-        example_painting2 = painting(db_type="remote DB",artist_name="Vincent van Gogh")
-        qimg2 = QImage(example_painting2.ndarray
-                       , example_painting2.ndarray.shape[1]
-                       , example_painting2.ndarray.shape[0]
-                       , example_painting2.ndarray.shape[1] * 3
-                       ,QImage.Format.Format_RGB888
-                       )
-        qpixmap2 = QPixmap.fromImage(qimg2)
-        # qpixmap2 = qpixmap2.scaled(100,100)
+        example_painting2 = self.load_painting(artist_name="Vincent van Gogh")
         p2 = self.ui.findChild(QLabel, "painting2")
-        p2.setPixmap(qpixmap2)
+        p2.setPixmap(example_painting2)
         
 #window1 = Painting-Window = window22.ui
 #window2 = Artist-Window = window33.ui
@@ -74,7 +51,23 @@ class MainWindow(QMainWindow):
             window2.closeEvent = lambda event: self.window2_closed(event)  
 #Artist-Window schließen, danach kann man wieder öffnen     
     def window2_closed(self,event):
-        self.window2_opened = False    
+        self.window2_opened = False   
+    
+    def load_painting(self,artist_name=None, id=None):
+        if id:
+            painting_temp = painting(db_type="remote DB",id=id)
+        elif artist_name:
+            painting_temp = painting(db_type="remote DB",artist_name=artist_name)
+        else:
+            painting_temp = painting(db_type="remote DB")
+        qimg2 = QImage(painting_temp.ndarray
+                       , painting_temp.ndarray.shape[1]
+                       , painting_temp.ndarray.shape[0]
+                       , painting_temp.ndarray.shape[1] * 3
+                       ,QImage.Format.Format_RGB888
+                       )
+        qpixmap2 = QPixmap.fromImage(qimg2)
+        return qpixmap2
 
 
 #Klasse für Painting-Window

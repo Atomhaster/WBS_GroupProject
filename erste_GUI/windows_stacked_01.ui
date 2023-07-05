@@ -24,7 +24,7 @@
      </rect>
     </property>
     <property name="currentIndex">
-     <number>1</number>
+     <number>0</number>
     </property>
     <widget class="QWidget" name="page_2">
      <widget class="QLabel" name="painting_image_random">
@@ -56,7 +56,7 @@
        </rect>
       </property>
       <property name="currentIndex">
-       <number>1</number>
+       <number>0</number>
       </property>
       <widget class="QWidget" name="stack_01">
        <widget class="QLabel" name="text_choose">
@@ -75,7 +75,7 @@
          <bool>true</bool>
         </property>
        </widget>
-       <widget class="QComboBox" name="dop_down_artist">
+       <widget class="QComboBox" name="drop_down_artist">
         <property name="geometry">
          <rect>
           <x>30</x>
@@ -162,6 +162,14 @@ the artist who created the painting</string>
       </property>
      </widget>
      <widget class="QLabel" name="title2">
+      <property name="geometry">
+       <rect>
+        <x>0</x>
+        <y>0</y>
+        <width>318</width>
+        <height>53</height>
+       </rect>
+      </property>
       <property name="font">
        <font>
         <pointsize>24</pointsize>

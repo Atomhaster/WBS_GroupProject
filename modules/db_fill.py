@@ -16,7 +16,7 @@ import database as db
 # absolute path where the picture archive from best art work of all time was unzipped
 # FOLDER_PATH = "C:/Users/bvondewitz/Downloads/archive"
 # setting path variable for Working Directory and  
-WD_PATH =  os.path.split(os.path.abspath(__file__))[0]
+WD_PATH =  os.path.split(os.path.split(os.path.abspath(__file__))[0])[0]
 USER_DOWNLOAD =  os.path.join(Path.home(), "Downloads")
 FOLDER_PATH = os.path.join(USER_DOWNLOAD, "archive")
 
@@ -77,7 +77,7 @@ def print_artist_minpainting(minimum):
           
 def read_csv_artists_content(file, minimum = 0):
     csv_content = {}
-    with open(FOLDER_PATH + "/" + file) as f_csv:
+    with open(WD_PATH + "\\DB_design\\" + file) as f_csv:
         reader = csv.reader(f_csv, delimiter=";")
         for zeile in reader:
             csv_content[zeile[1]] = (zeile[2][:4], zeile[2][-4:]
@@ -170,10 +170,10 @@ csv_artists = read_csv_artists_content(FILE_CSV, 200)
 gallery = db.database()
 
 # adding artists to db
-for j, i in csv_artists.items():
-    gallery.add_artist(
-        j, i[2], i[0], i[1], i[3], i[4]
-    )
+# for j, i in csv_artists.items():
+#     gallery.add_artist(
+#         j, i[2], i[0], i[1], i[3], i[4]
+#     )
 
 # checking if artists are in database
 # print("\nAll artists existing in db")
@@ -182,24 +182,24 @@ for j, i in csv_artists.items():
 #     print(row)
 
 # adding the paintings to the db
-for name in csv_artists.keys():
-    print("adding paintings of: " + name)
-    name_underscore = name.replace(" ", "_")
-    file_names = get_all_filenames(name_underscore)
-    print(len(file_names), " paintings found")
-    for paint in file_names:
-        ###  with the original image files, the database is getting 12 GB big. ###
-        # full_path = FOLDER_PATH + "/images/images/" + name_underscore + "/" + paint
-        ###   resized images still big with 4.5 GB.
-        full_path = FOLDER_PATH + "/resized/resized/" + paint
-        im = plt.imread(full_path)
-        gallery.add_painting(im, name)
-        print("+", end=" ")
-    print("\n")
+# for name in csv_artists.keys():
+#     print("adding paintings of: " + name)
+#     name_underscore = name.replace(" ", "_")
+#     file_names = get_all_filenames(name_underscore)
+#     print(len(file_names), " paintings found")
+#     for paint in file_names:
+#         ###  with the original image files, the database is getting 12 GB big. ###
+#         # full_path = FOLDER_PATH + "/images/images/" + name_underscore + "/" + paint
+#         ###   resized images still big with 4.5 GB.
+#         full_path = FOLDER_PATH + "/resized/resized/" + paint
+#         im = plt.imread(full_path)
+#         gallery.add_painting(im, name)
+#         print("+", end=" ")
+#     print("\n")
 
 ## check how many paintings are in the db:
-# count_all_paintings = gallery.query("SELECT COUNT(id) FROM painting", ())
-# print(count_all_paintings[0][0]) # 3971
+count_all_paintings = gallery.query("SELECT COUNT(id) FROM painting", ())
+print(count_all_paintings[0][0]) # 3971
 
 
 

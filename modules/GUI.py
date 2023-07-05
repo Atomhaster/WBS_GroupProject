@@ -8,10 +8,12 @@ from modules.artist import artist
 import numpy as np
 from sys import getsizeof
 import matplotlib.pyplot as plt
+from erste_GUI.window11 import Ui_MainWindow
 
-class MainWindow(QMainWindow):
+class MainWindow(QMainWindow, Ui_MainWindow):
     def __init__(self, local_path):
         super().__init__()
+        self.setupUi(self)
         self.setWindowTitle("GUI")
         self.local_path = local_path + "\\erste_GUI\\"
         self.ui = load_ui.loadUi(self.local_path + "window11.ui", self)
@@ -21,12 +23,10 @@ class MainWindow(QMainWindow):
         self.window2_opened=False
         
         example_painting1 = self.load_painting(artist_name="Pablo Picasso")
-        p1 = self.ui.findChild(QLabel, "painting1")
-        p1 = p1.setPixmap(example_painting1)
+        self.painting1.setPixmap(example_painting1)
         
         example_painting2 = self.load_painting(artist_name="Vincent van Gogh")
-        p2 = self.ui.findChild(QLabel, "painting2")
-        p2.setPixmap(example_painting2)
+        self.painting2.setPixmap(example_painting2)
         
 #window1 = Painting-Window = window22.ui
 #window2 = Artist-Window = window33.ui

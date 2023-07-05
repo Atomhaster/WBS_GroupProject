@@ -1,9 +1,9 @@
-import modules.db_remote as db
+import modules.database as db
 
 class artist():
     
     def __init__(self, id=0, fullname=""):
-        gallery_con = db.db_azure()
+        gallery_con = db.database()
         if fullname:
             id = gallery_con.get_artist_id(fullname)
         db_entry = gallery_con.get_artist(id_art=id)

@@ -106,7 +106,7 @@ class database(object):
     def get_artist(self, id_art):
         statement = f"SELECT * FROM artist WHERE id = {id_art}"
         self.db_cur.execute(statement)
-        return self.db_cur.fetchall()
+        return self.db_cur.fetchall()[0]
     
     def get_artist_id(self, artist_name):
         statement = f"SELECT id FROM artist WHERE name = '{artist_name}'"
@@ -128,7 +128,7 @@ if __name__ == "__main__":
     #     print(i)
     #     print(type(i))
     class_names = [i[1] for i in gallery.get_all_artists()]
-    print(class_names[0])
+    print(class_names)
     # count_all_paintings = gallery.query("SELECT COUNT(id) FROM painting", ())
     # print(count_all_paintings[0][0]) # 3971
     # print(gallery.get_max_painting_id())

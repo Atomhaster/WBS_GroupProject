@@ -20,6 +20,8 @@ class Ui_MainWindow(object):
         self.stackedWidget.setGeometry(QtCore.QRect(10, 10, 1501, 981))
         self.stackedWidget.setObjectName("stackedWidget")
         
+        
+        ### Page 2 _____________________________________________________________
         self.page_2 = QtWidgets.QWidget()
         self.page_2.setObjectName("page_2")
         self.painting_image_random = QtWidgets.QLabel(parent=self.page_2)
@@ -56,6 +58,15 @@ class Ui_MainWindow(object):
         self.drop_down_artist.setObjectName("drop_down_artist")
         self.drop_down_artist.addItem("")
         self.drop_down_artist.addItem("")
+        
+        self.go_button = QtWidgets.QPushButton(parent=self.stack_01)
+        self.go_button.setGeometry(QtCore.QRect(85, 245, 150, 50))
+        font = QtGui.QFont()
+        font.setPointSize(20)
+        font.setBold(True)
+        self.go_button.setFont(font)
+        self.go_button.setObjectName("Go_Button")
+        self.go_button.setText("GO")
         
         self.stackedWidget_2.addWidget(self.stack_01)
         
@@ -118,6 +129,9 @@ class Ui_MainWindow(object):
         self.label_6.setFont(font)
         self.label_6.setObjectName("label_6")
         self.stackedWidget.addWidget(self.page_2)
+        
+        
+        ## PAGE 1 _____________________________________________________________
         self.page_1 = QtWidgets.QWidget()
         self.page_1.setObjectName("page_1")
         self.painting_image1 = QtWidgets.QLabel(parent=self.page_1)
@@ -216,6 +230,9 @@ class Ui_MainWindow(object):
         self.line_6.setFrameShadow(QtWidgets.QFrame.Shadow.Sunken)
         self.line_6.setObjectName("line_6")
         self.stackedWidget.addWidget(self.page_1)
+        
+        
+        
         MainWindow.setCentralWidget(self.centralwidget)
         self.menubar = QtWidgets.QMenuBar(parent=MainWindow)
         self.menubar.setGeometry(QtCore.QRect(0, 0, 1525, 22))
@@ -226,7 +243,7 @@ class Ui_MainWindow(object):
         MainWindow.setStatusBar(self.statusbar)
 
         self.retranslateUi(MainWindow)
-        self.stackedWidget.setCurrentIndex(0)
+        self.stackedWidget.setCurrentIndex(1)
         self.stackedWidget_2.setCurrentIndex(0)
         QtCore.QMetaObject.connectSlotsByName(MainWindow)
 

@@ -23,7 +23,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         self.local_path = local_path + "\\erste_GUI\\"
         self.pushButton_start_1.clicked.connect(self.start) 
         self.pushButton_start2.clicked.connect(self.reset)
-        self.drop_down_artist.currentIndexChanged.connect(self.drop_selected)
+        self.go_button.clicked.connect(self.drop_selected)
         
         # example_painting1, artist_name = self.load_painting()
         # self.painting_image1.setPixmap(example_painting1)
@@ -71,7 +71,8 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                                                         ,self.painting_image4_text
                                                         ,return_painting=True)
         self.stackedWidget_2.setCurrentIndex(0)
-        
+        self.drop_down_artist.setCurrentIndex(0)
+                
     def drop_selected(self):
         self.stackedWidget_2.setCurrentIndex(1)
         # self.user_guess =  self.drop_down_artist.currentIndex()

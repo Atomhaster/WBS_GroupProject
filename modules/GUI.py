@@ -26,7 +26,9 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         self.local_path = local_path + "\\erste_GUI\\"
         self.pushButton_start_1.clicked.connect(self.start) 
         self.pushButton_start2.clicked.connect(self.reset)
-        self.go_button.clicked.connect(self.drop_selected)
+        self.pushButton.clicked.connect(self.drop_selected)
+        
+        self.machine_answer.setWordWrap(True)
         
         # example_painting1, artist_name = self.load_painting()
         # self.painting_image1.setPixmap(example_painting1)
@@ -89,12 +91,18 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         new_text = new_text + "\n" + "The correct answer is: " + artist_true.name
         
         ## getting machine predictions and displaying answer
-        machine_pred = self.model_prediction(self.painting_in_question)
+        machine_pred = self.model_prediction(self.painting_in_question,PIXEL_SIZE=100)
         new_text = (new_text + "\n" 
-                    + "The classification model prediction is: " 
+                    + "The model prediction is: " 
                     + machine_pred.name)
+        wiki = wikipedia.summary((artist_true.name + "Painter"), sentences = 2)
+        
+        new_text = new_text + "\n\n" +  wiki
         
         self.machine_answer.setText(new_text)
+        ma_font = self.machine_answer.font()
+        ma_font.setPointSize(12)
+        self.machine_answer.setFont(ma_font)
     
     def load_painting(self,artist_name=None, id=None, return_painting= False):
         if id:

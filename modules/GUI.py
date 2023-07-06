@@ -67,7 +67,9 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         self.stackedWidget_2.setCurrentIndex(0)
     
     def reset(self):
-        self.exchange_random(self.painting_image_random,self.painting_image4_text)
+        self.painting_in_question = self.exchange_random(self.painting_image_random
+                                                        ,self.painting_image4_text
+                                                        ,return_painting=True)
         self.stackedWidget_2.setCurrentIndex(0)
         
     def drop_selected(self):
@@ -79,8 +81,8 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         new_text = "Your guess is: " + self.user_guess
         
         artist_true = artist(id=self.painting_in_question.artist_id)
-        new_text = new_text + "\n" + "The correct answer is: " + str(self.painting_in_question.artist_id)
-        # new_text = new_text + "\n" + "The correct answer is: " + artist_true.name
+        # new_text = new_text + "\n" + "The correct answer is: " + str(self.painting_in_question.artist_id)
+        new_text = new_text + "\n" + "The correct answer is: " + artist_true.name
         
         self.machine_answer.setText(new_text)
     

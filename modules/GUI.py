@@ -23,7 +23,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         self.local_path = local_path + "\\erste_GUI\\"
         self.pushButton_start_1.clicked.connect(self.start) 
         self.pushButton_start2.clicked.connect(self.reset)
-        self.dop_down_artist.currentIndexChanged.connect(self.drop_selected)
+        self.drop_down_artist.currentIndexChanged.connect(self.drop_selected)
         
         # example_painting1, artist_name = self.load_painting()
         # self.painting_image1.setPixmap(example_painting1)
@@ -37,16 +37,16 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                                                         ,self.painting_image4_text
                                                         ,return_painting=True)
         
-        self.dop_down_artist.setItemText(0, "Vincent van Gogh")
-        self.dop_down_artist.setItemText(1, "Pablo Picasso")
-        self.dop_down_artist.addItem("Pierre Auguste Renoir")
-        self.dop_down_artist.addItem("Francisco de Goya")
-        self.dop_down_artist.addItem("Alfred Sisley")
-        self.dop_down_artist.addItem("Marc Chagall")
-        self.dop_down_artist.addItem("Edgar Degas")
-        self.dop_down_artist.addItem("Rembrandt")
-        self.dop_down_artist.addItem("Titian")
-        self.dop_down_artist.addItem("Paul Gougain")
+        self.drop_down_artist.setItemText(0, "Vincent van Gogh")
+        self.drop_down_artist.setItemText(1, "Pablo Picasso")
+        self.drop_down_artist.addItem("Pierre Auguste Renoir")
+        self.drop_down_artist.addItem("Francisco de Goya")
+        self.drop_down_artist.addItem("Alfred Sisley")
+        self.drop_down_artist.addItem("Marc Chagall")
+        self.drop_down_artist.addItem("Edgar Degas")
+        self.drop_down_artist.addItem("Rembrandt")
+        self.drop_down_artist.addItem("Titian")
+        self.drop_down_artist.addItem("Paul Gougain")
         
         # example_painting2 = self.load_painting(artist_name="Vincent van Gogh")
         # self.painting2.setPixmap(example_painting2)
@@ -72,8 +72,8 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         
     def drop_selected(self):
         self.stackedWidget_2.setCurrentIndex(1)
-        # self.user_guess =  self.dop_down_artist.currentIndex()
-        self.user_guess =  self.dop_down_artist.currentText()
+        # self.user_guess =  self.drop_down_artist.currentIndex()
+        self.user_guess =  self.drop_down_artist.currentText()
         print(self.user_guess)
         # artist_user_sel = artist(id=self.user_guess)
         new_text = "Your guess is: " + self.user_guess

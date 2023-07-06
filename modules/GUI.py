@@ -9,16 +9,19 @@ import numpy as np
 from sys import getsizeof
 import matplotlib.pyplot as plt
 from erste_GUI.windows_stacked_01 import Ui_MainWindow
+
+import cv2 as cv
 from wikipedia import wikipedia
 
 class MainWindow(QMainWindow, Ui_MainWindow):
-    def __init__(self, local_path):
+    def __init__(self, local_path, classification_model):
         super().__init__()
         self.setupUi(self)
         self.setWindowTitle("GUI")
         
         self.user_guess = None
         self.painting_in_question = None
+        self.class_model = classification_model
         
         self.local_path = local_path + "\\erste_GUI\\"
         self.pushButton_start_1.clicked.connect(self.start) 
@@ -85,6 +88,12 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         # new_text = new_text + "\n" + "The correct answer is: " + str(self.painting_in_question.artist_id)
         new_text = new_text + "\n" + "The correct answer is: " + artist_true.name
         
+        ## getting machine predictions and displaying answer
+        machine_pred = self.model_prediction(self.painting_in_question)
+        new_text = (new_text + "\n" 
+                    + "The classification model prediction is: " 
+                    + machine_pred.name)
+        
         self.machine_answer.setText(new_text)
     
     def load_painting(self,artist_name=None, id=None, return_painting= False):
@@ -106,3 +115,15 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             return qpixmap2, artist_temp.name, painting_temp
         else:
             return qpixmap2, artist_temp.name
+        
+    def model_prediction(self, painting, PIXEL_SIZE=256):
+        test_ndarray = cv.resize(painting.ndarray, dsize=(PIXEL_SIZE,PIXEL_SIZE)
+                               ,interpolation=cv.INTER_CUBIC)
+        test_ndarray = test_ndarray/255
+        temp_array = np.zeros((1,PIXEL_SIZE,PIXEL_SIZE,3))
+        print(temp_array.shape)
+        temp_array[0] = test_ndarray
+        prediction = self.class_model.predict(temp_array)
+        index = np.argmax(prediction)
+        artist_temp = artist(id= index+1)
+        return artist_temp

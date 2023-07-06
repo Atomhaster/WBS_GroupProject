@@ -10,3 +10,5 @@ personal_log*
 artgallery.db
 
 TEMP_*
+
+image_classifier_BvDtest_10artists.model/

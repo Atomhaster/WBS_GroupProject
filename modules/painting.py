@@ -10,7 +10,7 @@ class painting():
             gallery = db_local.database()
         else:
             print("value of argument db_type not recognized."
-                    + " Try 'remote' or 'local' instead")
+                    + " Try 'remote DB' or 'local DB' insted")
             return False
         db_entry = ()
         if id:
@@ -21,7 +21,7 @@ class painting():
         self.id = db_entry[0]
         self.artist_id = db_entry[1]
         self.size_width = db_entry[2]
-        self.size_height = db_entry[2]
+        self.size_height = db_entry[3]
         self.ndarray = db_entry[4]
     
     def blurr_image(self):

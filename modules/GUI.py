@@ -62,8 +62,8 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         else:
             example_painting1, artist_name = self.load_painting()
         if text_obj:
-            image_obj.setPixmap(example_painting1)
-        text_obj.setText(artist_name)
+            text_obj.setText(artist_name)
+        image_obj.setPixmap(example_painting1)
         if return_painting:
             return painting
     
@@ -73,7 +73,6 @@ class MainWindow(QMainWindow, Ui_MainWindow):
     
     def reset(self):
         self.painting_in_question = self.exchange_random(self.painting_image_random
-                                                        ,self.painting_image4_text
                                                         ,return_painting=True)
         self.stackedWidget_2.setCurrentIndex(0)
         self.drop_down_artist.setCurrentIndex(0)
@@ -91,7 +90,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         new_text = new_text + "\n" + "The correct answer is: " + artist_true.name
         
         ## getting machine predictions and displaying answer
-        machine_pred = self.model_prediction(self.painting_in_question,PIXEL_SIZE=100)
+        machine_pred = self.model_prediction(self.painting_in_question)
         new_text = (new_text + "\n" 
                     + "The model prediction is: " 
                     + machine_pred.name)

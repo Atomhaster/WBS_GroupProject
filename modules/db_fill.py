@@ -126,16 +126,16 @@ ARTISTS = get_all_artist_names()
 # print_artist_minpainting(200)
 
 #  artists with more than 200 paintings available   
-#  Alfred_Sisley           259
-#  Edgar_Degas             702
-#  Francisco_Goya          291
-#  Marc_Chagall            239
+#  Vincent_van_Gogh        877
 #  Pablo_Picasso           439
-#  Paul_Gauguin            311
 #  Pierre-Auguste_Renoir   336
+#  Francisco_Goya          291
+#  Alfred_Sisley           259
+#  Marc_Chagall            239
+#  Edgar_Degas             702
 #  Rembrandt               262
 #  Titian                  255
-#  Vincent_van_Gogh        877
+#  Paul_Gauguin            311
 
 
 #  getting the artists infos from the excel file. I've removed the wiki columns from
@@ -181,6 +181,7 @@ gallery = db.database()
 # for row in all_artist_db:
 #     print(row)
 
+
 # adding the paintings to the db
 # for name in csv_artists.keys():
 #     print("adding paintings of: " + name)
@@ -192,15 +193,21 @@ gallery = db.database()
 #         # full_path = FOLDER_PATH + "/images/images/" + name_underscore + "/" + paint
 #         ###   resized images still big with 4.5 GB.
 #         full_path = FOLDER_PATH + "/resized/resized/" + paint
-#         im = plt.imread(full_path)
-#         gallery.add_painting(im, name)
-#         print("+", end=" ")
-#     print("\n")
+#         print(full_path)
+#         # im = plt.imread(full_path)
+#         # gallery.add_painting(im, name)
+#         # print("+", end=" ")
+#     # print("\n")
 
 ## check how many paintings are in the db:
-count_all_paintings = gallery.query("SELECT COUNT(id) FROM painting", ())
-print(count_all_paintings[0][0]) # 3971
+# count_all_paintings = gallery.query("SELECT COUNT(id) FROM painting", ())
+# print(count_all_paintings[0][0]) # 3971
 
+# tests about retrieving the paintings again
+test_painting = gallery.get_painting(id_pic=1944)
+print(test_painting[:4])
+imgplot = plt.imshow(test_painting[4])
+plt.show()
 
 
 

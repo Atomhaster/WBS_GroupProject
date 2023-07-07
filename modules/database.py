@@ -4,7 +4,7 @@ import io
 import random
 
 class database(object):
-    db_name = "artgallery.db"
+    db_name = "artgallery2.db"
     
     def __init__(self) -> None:
         self.connection = sqlite3.connect(self.db_name
@@ -69,6 +69,8 @@ class database(object):
         size_width = painting.shape[1]
         size_height = painting.shape[0]
         painting_blob = adapt_array(painting)
+        print(artist)
+        print(artist_id)
         sql = """INSERT INTO painting(artist_id, size_width, size_height, painting)
                 VALUES (:artist_id, :size_width, :size_height, :painting)"""
         data = {"artist_id" : artist_id

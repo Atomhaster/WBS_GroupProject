@@ -4,7 +4,7 @@ import io
 import random
 
 class database(object):
-    db_name = "artgallery2.db"
+    db_name = "artgallery.db"
     
     def __init__(self) -> None:
         self.connection = sqlite3.connect(self.db_name

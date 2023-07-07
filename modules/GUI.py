@@ -94,10 +94,17 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         new_text = (new_text + "\n" 
                     + "The model prediction is: " 
                     + machine_pred.name)
-        wiki = wikipedia.summary((artist_true.name + "Painter"), sentences = 2)
         
-        new_text = new_text + "\n\n" +  wiki
+        ## information from the DB of the artist:
+        new_text = (new_text + "\n\n" + str(artist_true.name) 
+                    + ", * " + str(artist_true.birth)
+                    + ", † " + str(artist_true.death))
         
+        ## wiki entry for the artist:
+        wiki = wikipedia.summary((artist_true.name + "Painter"), sentences = 1)
+        new_text = new_text + "\n" +  wiki
+        
+        # setting the text in the object and changing font size
         self.machine_answer.setText(new_text)
         ma_font = self.machine_answer.font()
         ma_font.setPointSize(12)

@@ -12,9 +12,9 @@ WD_PATH =  os.path.abspath(LOCAL_PATH)
 PATH_TRAINING = os.path.join(WD_PATH, "model_training")
 model = models.load_model(
     os.path.join(PATH_TRAINING
-                 ,"image_classifier_BvDtest_10artists.model"))
+                 ,"image_classifier_BvDtest.model"))
 
 app = QApplication([])
-window = MainWindow(LOCAL_PATH)
+window = MainWindow(LOCAL_PATH, model)
 window.show()
 app.exec()

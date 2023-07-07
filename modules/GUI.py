@@ -1,13 +1,8 @@
-from PyQt6.QtWidgets import (QMainWindow, QApplication, QPushButton
-                             , QWidget, QHBoxLayout, QLabel)
-from PyQt6.uic import load_ui
-from PyQt6.QtGui import QCloseEvent
+from PyQt6.QtWidgets import QMainWindow
 from PyQt6.QtGui import QPixmap, QImage
 from modules.painting import painting
 from modules.artist import artist
 import numpy as np
-from sys import getsizeof
-import matplotlib.pyplot as plt
 from erste_GUI.windows_stacked_01 import Ui_MainWindow
 
 import cv2 as cv
